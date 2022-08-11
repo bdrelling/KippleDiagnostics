@@ -7,11 +7,11 @@ public struct ConsoleLogHandler {
     // MARK: Properties
 
     /// The global log level threshold that determines when to send log output to the console.
-    /// Defaults to `.debug`.
+    /// Defaults to `nil`, implying that the `Logger`'s `logLevel` is respected entirely.
     ///
     /// The `logLevel` of an individual `ConsoleLogHandler` is ignored when this global
     /// log level is set to a higher level.
-    public static var globalLogLevel: Logger.Level = .debug
+    public static var globalLogLevel: Logger.Level?
 
     /// The log label for the log handler.
     public var label: String
@@ -21,6 +21,13 @@ public struct ConsoleLogHandler {
 
     /// Prettified metadata string for simplified logging.
     private var prettyMetadata: String?
+
+    public var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSSSSZ"
+
+        return formatter
+    }()
 
     // MARK: LogHandler Properties
 
@@ -34,8 +41,16 @@ public struct ConsoleLogHandler {
 
     // MARK: Initializers
 
-    init(label: String) {
+    public init(label: String) {
         self.label = label
+    }
+}
+
+// MARK: - Convenience
+
+extension LogHandler where Self == ConsoleLogHandler {
+    static func console(label: String) -> Self {
+        .init(label: label)
     }
 }
 
@@ -51,6 +66,18 @@ extension ConsoleLogHandler: LogHandler {
         }
     }
 
+    /// This method is called when a `LogHandler` must emit a log message. There is no need for the `LogHandler` to
+    /// check if the `level` is above or below the configured `logLevel` as `Logger` already performed this check and
+    /// determined that a message should be logged.
+    ///
+    /// - parameters:
+    ///     - level: The log level the message was logged at.
+    ///     - message: The message to log. To obtain a `String` representation call `message.description`.
+    ///     - metadata: The metadata associated to this log message.
+    ///     - source: The source where the log message originated, for example the logging module.
+    ///     - file: The file the log message was emitted from.
+    ///     - function: The function the log line was emitted from.
+    ///     - line: The line the log message was emitted from.
     public func log(
         level: Logger.Level,
         message: Logger.Message,
@@ -60,57 +87,55 @@ extension ConsoleLogHandler: LogHandler {
         function: String,
         line: UInt
     ) {
-        guard level >= Self.globalLogLevel else {
+        // If there is no global log level currently set, use the lowest log level available.
+        // This ensures that it will respect the parent Logger's log level instead.
+        let globalLogLevel = Self.globalLogLevel ?? .trace
+
+        guard level >= globalLogLevel else {
             return
         }
 
-        var formattedMessage = message.description
-            .prependingLogPrefix(level.rawValue)
-            .prependingLogPrefix(self.label, isInBrackets: false)
+        var items: [String?] = []
 
+        // Timestamp (optional)
         if self.shouldIncludeTimestamp {
-            formattedMessage = formattedMessage.prependingTimestamp()
+            items.append(self.dateFormatter.string(from: Date()))
         }
 
+        // Label
+        items.append(self.label)
+
+        // Log Level
+        // We wrap this in brackets to help identify the start of the log message.
+        items.append("[\(self.logLevel.rawValue)]")
+
+        // Message
+        items.append(message.description)
+
+        // Code Information
+        if let filename = file.split(separator: "/").last {
+            items.append("[\(filename):\(line) \(function)]")
+        }
+
+        // Metadata
+        // This snippet is copied verbatim from swift-log.
+        // Source: https://github.com/apple/swift-log/blob/f2e8667d508016531ba5d044b739eae1ae532a30/Sources/Logging/Logging.swift#L1132-1134
         let prettyMetadata = metadata?.isEmpty ?? true
             ? self.prettyMetadata
             : self.prettify(self.metadata.merging(metadata!, uniquingKeysWith: { _, new in new }))
+        items.append(prettyMetadata)
 
-        if let prettyMetadata = prettyMetadata {
-            formattedMessage = formattedMessage.appending(prettyMetadata)
-        }
+        // Build our formatted message
+        let formattedMessage = items.compactMap { $0 }.joined(separator: " ")
 
         print(formattedMessage)
     }
 
-    // Source: https://github.com/apple/swift-log/blob/02770d91fc9635df6400494f4b2c97e513e39719/Sources/Logging/Logging.swift#L1127-L1131
+    // This method is copied verbatim from swift-log.
+    // Source: https://github.com/apple/swift-log/blob/f2e8667d508016531ba5d044b739eae1ae532a30/Sources/Logging/Logging.swift#L1140-1144
     private func prettify(_ metadata: Logger.Metadata) -> String? {
         !metadata.isEmpty
             ? metadata.lazy.sorted(by: { $0.key < $1.key }).map { "\($0)=\($1)" }.joined(separator: " ")
             : nil
-    }
-}
-
-private extension String {
-    func prependingLogPrefix(_ prefix: String, isInBrackets: Bool = true) -> String {
-        if isInBrackets {
-            return "[\(prefix)] \(self)"
-        } else {
-            return "\(prefix) \(self)"
-        }
-    }
-
-    func appending(_ message: String) -> String {
-        "\(self) \(message)"
-    }
-}
-
-private extension String {
-    func prependingTimestamp() -> String {
-        let now = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSSSSZ"
-
-        return self.prependingLogPrefix(formatter.string(from: now), isInBrackets: false)
     }
 }
