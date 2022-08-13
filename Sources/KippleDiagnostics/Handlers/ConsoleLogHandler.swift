@@ -107,7 +107,7 @@ extension ConsoleLogHandler: LogHandler {
 
         // Log Level
         // We wrap this in brackets to help identify the start of the log message.
-        items.append("[\(self.logLevel.rawValue)]")
+        items.append("[\(level.rawValue)]")
 
         // Message
         items.append(message.description)
