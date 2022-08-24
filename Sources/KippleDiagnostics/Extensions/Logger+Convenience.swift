@@ -28,6 +28,6 @@ public extension Logger {
 
     /// Creates a `Logger` configured to log to the console.
     static func console(label: String, logLevel: Logger.Level) -> Self {
-        .init(label: label, logLevel: logLevel, logHandler: .console(label: label))
+        .init(label: label, logLevel: logLevel, logHandler: ConsoleLogHandler(label: label))
     }
 }

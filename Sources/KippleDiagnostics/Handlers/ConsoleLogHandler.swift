@@ -46,14 +46,6 @@ public struct ConsoleLogHandler {
     }
 }
 
-// MARK: - Convenience
-
-extension LogHandler where Self == ConsoleLogHandler {
-    static func console(label: String) -> Self {
-        .init(label: label)
-    }
-}
-
 // MARK: - Extensions
 
 extension ConsoleLogHandler: LogHandler {
@@ -139,3 +131,13 @@ extension ConsoleLogHandler: LogHandler {
             : nil
     }
 }
+
+// MARK: - Convenience
+
+#if swift(>=5.5)
+extension LogHandler where Self == ConsoleLogHandler {
+    static func console(label: String) -> Self {
+        .init(label: label)
+    }
+}
+#endif
