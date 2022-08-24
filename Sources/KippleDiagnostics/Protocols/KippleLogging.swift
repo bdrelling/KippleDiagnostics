@@ -26,7 +26,7 @@ public extension KippleLogging {
     }
 
     init(label: String, logLevel: Logger.Level, logHandler: LogHandler? = nil) {
-        let logHandler = logHandler ?? .console(label: label)
+        let logHandler = logHandler ?? ConsoleLogHandler(label: label)
         self.init(logger: .init(label: label, logLevel: logLevel, logHandler: logHandler))
     }
 
