@@ -1,5 +1,6 @@
 # KippleDiagnostics
 
+[![CI Status](https://github.com/swift-kipple/Diagnostics/actions/workflows/tests.yml/badge.svg)](https://github.com/swift-kipple/Diagnostics/actions/workflows/tests.yml)
 [![Latest Release](https://img.shields.io/github/v/tag/swift-kipple/Diagnostics?color=blue&label=latest)](https://github.com/swift-kipple/Diagnostics/releases)
 [![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FDiagnostics%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/swift-kipple/Diagnostics)
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fswift-kipple%2FDiagnostics%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/swift-kipple/Diagnostics)
