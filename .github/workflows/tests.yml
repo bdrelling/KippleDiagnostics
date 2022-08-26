@@ -11,4 +11,4 @@ jobs:
   swift_test:
     uses: bdrelling/workflows/.github/workflows/swift_test_universal_package.yml@main
     with:
-      scheme: KippleCore
+      scheme: KippleDiagnostics
