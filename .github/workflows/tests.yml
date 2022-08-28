@@ -1,4 +1,4 @@
-name: Build
+name: Tests
 
 on:
   workflow_dispatch:
@@ -14,6 +14,5 @@ jobs:
       DISCORD_CI_WEBHOOK: ${{ secrets.DISCORD_CI_WEBHOOK }}
     with:
       scheme: KippleDiagnostics
-      subcommand: build
       platforms: iOS tvOS macOS watchOS Linux
       swift-versions: 5.3 5.4 5.5 5.6
