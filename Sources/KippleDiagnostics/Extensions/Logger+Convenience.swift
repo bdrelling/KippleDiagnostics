@@ -5,22 +5,28 @@ import Logging
 public extension Logger {
     static let defaultLabel = "Kipple"
 
-    // For some reason, Swift 5.3 and 5.4 don't know what to do with the #if DEBUG flag within the function block.
-    #if DEBUG
-    /// Creates a `Logger` configured for the active build configuration.
-    /// The default self.logger is just a best attempt at providing convenient access to logging out-of-the-box.
-    /// For all real-world use cases, it is recommended to create your own instance of `KippleLogger` for your application.
-    static func `default`(_ label: String = Self.defaultLabel) -> Self {
-        .debug(label)
-    }
-    #else
-    /// Creates a `Logger` configured for the active build configuration.
     /// The default self.logger is just a best attempt at providing convenient access to logging out-of-the-box.
     /// For all real-world use cases, it is recommended to create your own instance of `KippleLogger` for your application.
     static func `default`(_ label: String = Self.defaultLabel) -> Self {
         .release(label)
     }
-    #endif
+
+    // // For some reason, Swift 5.3 and 5.4 don't know what to do with the #if DEBUG flag within the function block.
+    // #if DEBUG
+    // /// Creates a `Logger` configured for the active build configuration.
+    // /// The default self.logger is just a best attempt at providing convenient access to logging out-of-the-box.
+    // /// For all real-world use cases, it is recommended to create your own instance of `KippleLogger` for your application.
+    // static func `default`(_ label: String = Self.defaultLabel) -> Self {
+    //     return .debug(label)
+    // }
+    // #else
+    // /// Creates a `Logger` configured for the active build configuration.
+    // /// The default self.logger is just a best attempt at providing convenient access to logging out-of-the-box.
+    // /// For all real-world use cases, it is recommended to create your own instance of `KippleLogger` for your application.
+    // static func `default`(_ label: String = Self.defaultLabel) -> Self {
+    //     return.release(label)
+    // }
+    // #endif
 
     /// Creates a `Logger` configured with the `debug` minimum log level for `debug` configurations.
     static func debug(_ label: String = Self.defaultLabel) -> Self {
