@@ -10,9 +10,9 @@ public extension Logger {
     /// For all real-world use cases, it is recommended to create your own instance of `KippleLogger` for your application.
     static func `default`(_ label: String = Self.defaultLabel) -> Self {
         #if DEBUG
-            .debug(label)
+        return .debug(label)
         #else
-            .release(label)
+        return .release(label)
         #endif
     }
 
