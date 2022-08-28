@@ -9,6 +9,7 @@ public extension Logger {
     /// The default self.logger is just a best attempt at providing convenient access to logging out-of-the-box.
     /// For all real-world use cases, it is recommended to create your own instance of `KippleLogger` for your application.
     static func `default`(_ label: String = Self.defaultLabel) -> Self {
+        // For some reason, Swift 5.3 and 5.4 don't know what to do with the #if DEBUG flag.
         #if swift(>=5.5) && DEBUG
         return .debug(label)
         #else
