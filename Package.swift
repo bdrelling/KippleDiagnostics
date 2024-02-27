@@ -1,14 +1,21 @@
-// swift-tools-version:5.3
+// swift-tools-version: 5.7
 
 import PackageDescription
 
 let package = Package(
     name: "KippleDiagnostics",
+    platforms: [
+        .iOS(.v16),
+        .macOS(.v13),
+        .tvOS(.v16),
+        .watchOS(.v9),
+    ],
     products: [
         .library(name: "KippleDiagnostics", targets: ["KippleDiagnostics"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-log", from: "1.4.4"),
+        .package(url: "https://github.com/apple/swift-log", from: "1.5.4"),
+        .package(url: "https://github.com/swift-kipple/Tools", revision: "4bc0d4cee521e5a7389d832b8fac45cdf4a867f2"),
     ],
     targets: [
         // Product Targets
@@ -30,10 +37,3 @@ let package = Package(
         ),
     ]
 )
-
-#if swift(>=5.5)
-// Add Kipple Tools if possible.
-package.dependencies.append(
-    .package(url: "https://github.com/swift-kipple/Tools", from: "0.3.0")
-)
-#endif
