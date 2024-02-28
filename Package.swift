@@ -11,7 +11,7 @@ let package = Package(
         .watchOS(.v9),
     ],
     products: [
-        .library(name: "KippleDiagnostics", targets: ["KippleDiagnostics"]),
+        .library(name: "KippleLogging", targets: ["KippleLogging"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-log", from: "1.5.4"),
@@ -20,16 +20,16 @@ let package = Package(
     targets: [
         // Product Targets
         .target(
-            name: "KippleDiagnostics",
+            name: "KippleLogging",
             dependencies: [
                 .product(name: "Logging", package: "swift-log"),
             ]
         ),
         // Tests Targets
         .testTarget(
-            name: "KippleDiagnosticsTests",
+            name: "KippleLoggingTests",
             dependencies: [
-                .target(name: "KippleDiagnostics"),
+                .target(name: "KippleLogging"),
             ]
         ),
     ]

@@ -1,6 +1,6 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
-@testable import KippleDiagnostics
+@testable import KippleLogging
 import XCTest
 
 final class ConsoleLogHandlerTests: XCTestCase, LogHandlerValidating {
