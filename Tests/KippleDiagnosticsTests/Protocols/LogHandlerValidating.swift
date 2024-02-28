@@ -10,7 +10,7 @@ extension LogHandlerValidating {
     ///
     /// This test case has been copied nearly verbatim from the swift-log API documentation.
     /// See [LogHandler](https://apple.github.io/swift-log/docs/current/Logging/Protocols/LogHandler.html) for more information.
-    func validateLogHandler(_ factory: @escaping (String) -> LogHandler) {
+    func validateLogLevel(_ factory: @escaping (String) -> LogHandler) {
         var logger1 = Logger(label: "first logger", factory: factory)
         logger1.logLevel = .debug
         logger1[metadataKey: "only-on"] = "first"

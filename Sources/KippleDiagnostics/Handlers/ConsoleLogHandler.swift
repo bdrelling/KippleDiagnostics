@@ -22,6 +22,7 @@ public struct ConsoleLogHandler {
     /// Prettified metadata string for simplified logging.
     private var prettyMetadata: String?
 
+    /// The formatter to use when printing date timestamps.
     public var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSSSSZ"
@@ -134,10 +135,8 @@ extension ConsoleLogHandler: LogHandler {
 
 // MARK: - Convenience
 
-#if swift(>=5.5)
 extension LogHandler where Self == ConsoleLogHandler {
     static func console(label: String) -> Self {
         .init(label: label)
     }
 }
-#endif

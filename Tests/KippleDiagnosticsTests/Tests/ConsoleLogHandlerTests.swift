@@ -5,6 +5,6 @@ import XCTest
 
 final class ConsoleLogHandlerTests: XCTestCase, LogHandlerValidating {
     func testLogHandlerConformanceIsValid() {
-        self.validateLogHandler(ConsoleLogHandler.init)
+        self.validateLogLevel(ConsoleLogHandler.init)
     }
 }
