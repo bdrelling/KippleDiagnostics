@@ -1,9 +1,9 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
-#if canImport(Logging)
-
-@testable import KippleLogging
 import XCTest
+#if os(Linux) && canImport(Logging)
+
+import KippleLogging
 
 final class ConsoleLogHandlerTests: XCTestCase, LogHandlerValidating {
     func testLogHandlerConformanceIsValid() {
@@ -12,3 +12,8 @@ final class ConsoleLogHandlerTests: XCTestCase, LogHandlerValidating {
 }
 
 #endif
+
+
+
+final class Tests: XCTestCase {
+}

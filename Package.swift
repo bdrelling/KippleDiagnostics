@@ -22,7 +22,7 @@ let package = Package(
         .target(
             name: "KippleLogging",
             dependencies: [
-                .product(name: "Logging", package: "swift-log"),
+                .product(name: "Logging", package: "swift-log", condition: .when(platforms: [.linux])),
             ]
         ),
         // Tests Targets

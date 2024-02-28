@@ -1,6 +1,6 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
-#if canImport(Logging)
+#if os(Linux) && canImport(Logging)
 
 import Logging
 import XCTest
