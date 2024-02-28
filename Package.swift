@@ -23,9 +23,6 @@ let package = Package(
             name: "KippleDiagnostics",
             dependencies: [
                 .product(name: "Logging", package: "swift-log"),
-            ],
-            swiftSettings: [
-                .define("DEBUG", .when(configuration: .debug)),
             ]
         ),
         // Tests Targets

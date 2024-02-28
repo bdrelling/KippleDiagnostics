@@ -188,3 +188,15 @@ public extension Logger {
         self.report(GenericError(message), metadata: metadata, file: file, function: function, line: line)
     }
 }
+
+private struct GenericError: LocalizedError {
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+
+    var errorDescription: String? {
+        self.message
+    }
+}
