@@ -1,6 +1,6 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
-#if os(Linux)
+#if canImport(Logging)
 
 import Foundation
 import Logging

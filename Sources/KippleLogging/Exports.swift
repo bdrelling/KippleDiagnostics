@@ -4,7 +4,7 @@
 //
 // NOTE: APIs with the _ prefix are considered to be unfinalized, so the signature of the attribute is subject to change.
 
-#if os(Linux)
+#if canImport(Logging)
 @_exported import Logging
 #else
 @_exported import OSLog
