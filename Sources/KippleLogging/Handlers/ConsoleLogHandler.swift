@@ -1,5 +1,7 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
+#if os(Linux)
+
 import Foundation
 import Logging
 
@@ -140,3 +142,5 @@ extension LogHandler where Self == ConsoleLogHandler {
         .init(label: label)
     }
 }
+
+#endif

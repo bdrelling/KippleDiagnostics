@@ -1,5 +1,7 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
+#if os(Linux)
+
 import Foundation
 import Logging
 
@@ -200,3 +202,5 @@ private struct GenericError: LocalizedError {
         self.message
     }
 }
+
+#endif

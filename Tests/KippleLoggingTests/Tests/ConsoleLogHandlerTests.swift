@@ -1,5 +1,7 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
+#if os(Linux)
+
 @testable import KippleLogging
 import XCTest
 
@@ -8,3 +10,5 @@ final class ConsoleLogHandlerTests: XCTestCase, LogHandlerValidating {
         self.validateLogLevel(ConsoleLogHandler.init)
     }
 }
+
+#endif

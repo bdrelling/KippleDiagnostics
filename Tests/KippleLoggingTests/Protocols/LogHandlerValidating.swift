@@ -1,5 +1,7 @@
 // Copyright © 2024 Brian Drelling. All rights reserved.
 
+#if os(Linux)
+
 import Logging
 import XCTest
 
@@ -25,3 +27,5 @@ extension LogHandlerValidating {
         XCTAssertEqual("second", logger2[metadataKey: "only-on"])
     }
 }
+
+#endif
